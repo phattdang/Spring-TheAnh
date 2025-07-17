@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: bai02-baitap
+    runtime: java
+    buildCommand: mvn clean install
+    startCommand: java -jar target/Bai02_baitap-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: JAVA_VERSION
+        value: "24"
