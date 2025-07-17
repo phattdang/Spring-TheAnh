@@ -59,6 +59,10 @@ public class BuildingController {
         return buildingService.findByNameContainingAndDistrict_NameContaining(name, districtName);
     }
 
+    @GetMapping("/hello")
+    String sayHello(){
+        return "hello render";
+    }
 
     @DeleteMapping("/{ids}")
     @Transactional
