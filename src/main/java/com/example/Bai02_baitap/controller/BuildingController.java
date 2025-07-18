@@ -1,5 +1,7 @@
 package com.example.Bai02_baitap.controller;
 
+import com.example.Bai02_baitap.dto.request.BuildingCreationRequest;
+import com.example.Bai02_baitap.dto.request.BuildingUpdationRequest;
 import com.example.Bai02_baitap.dto.response.BuildingResponse;
 import com.example.Bai02_baitap.service.BuildingService;
 import jakarta.transaction.Transactional;
@@ -68,5 +70,15 @@ public class BuildingController {
     @Transactional
     public void deleteBuilding(@PathVariable List<Integer> ids){
         buildingService.deleteByIdIn(ids);
+    }
+
+    @PostMapping
+    void addBuilding(@RequestBody BuildingCreationRequest request){
+        buildingService.addBuilding(request);
+    }
+
+    @PutMapping("/{buildingId}")
+    void updateBuilding(@PathVariable int buildingId, @RequestBody BuildingUpdationRequest request){
+        buildingService.updateBuilding(buildingId, request);
     }
 }

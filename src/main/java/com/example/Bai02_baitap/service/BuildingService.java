@@ -1,8 +1,9 @@
 package com.example.Bai02_baitap.service;
 
+import com.example.Bai02_baitap.dto.request.BuildingCreationRequest;
+import com.example.Bai02_baitap.dto.request.BuildingUpdationRequest;
 import com.example.Bai02_baitap.dto.response.BuildingResponse;
-import com.example.Bai02_baitap.entity.Building;
-import com.example.Bai02_baitap.entity.District;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +19,7 @@ public interface BuildingService {
     List<BuildingResponse> findByNameContainingAndDistrict_Id(String name, Integer districtId);
     List<BuildingResponse> findByNameContainingAndDistrict_NameContaining(String name, String districtName);
     void deleteByIdIn(List<Integer> ids);
+
+    void updateBuilding(int buildingId, BuildingUpdationRequest request);
+    void addBuilding(BuildingCreationRequest request);
 }

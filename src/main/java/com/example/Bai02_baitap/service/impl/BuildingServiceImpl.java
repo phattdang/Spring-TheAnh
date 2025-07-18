@@ -1,6 +1,8 @@
 package com.example.Bai02_baitap.service.impl;
 
 import com.example.Bai02_baitap.converter.BuildingConverter;
+import com.example.Bai02_baitap.dto.request.BuildingCreationRequest;
+import com.example.Bai02_baitap.dto.request.BuildingUpdationRequest;
 import com.example.Bai02_baitap.dto.response.BuildingResponse;
 import com.example.Bai02_baitap.entity.Building;
 
@@ -13,7 +15,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -98,5 +102,20 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public void deleteByIdIn(List<Integer> ids) {
         buildingRepository.deleteByIdIn(ids);
+    }
+
+    @Override
+    public void updateBuilding(int buildingId, BuildingUpdationRequest request) {
+        Building building = buildingRepository.findById(buildingId)
+                .orElseThrow(
+                        () ->  new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found!!!")
+                );
+        mapper.updateBuilding(building, request);
+        buildingRepository.save(building);
+    }
+
+    @Override
+    public void addBuilding(BuildingCreationRequest request) {
+        buildingRepository.save(converter.toBuilding(request));
     }
 }
